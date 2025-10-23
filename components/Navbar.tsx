@@ -34,47 +34,47 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="container">
-        <div className="flex items-center justify-between h-16">
+    <nav className="sticky top-0 z-50 bg-white shadow-sm">
+      <div className="container max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center text-white font-bold shadow-md">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-[#001f3d] flex items-center justify-center text-white font-bold text-xl shadow-lg">
               FF
             </div>
-            <span className="font-bold text-xl text-gray-900">FlagFootball</span>
+            <span className="font-bold text-2xl text-[#001f3d]">FlagFootball</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-2">
             <Link 
               href="/teams" 
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-5 py-2.5 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
             >
               Teams
             </Link>
             <Link 
               href="/leagues" 
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-5 py-2.5 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
             >
               Leagues
             </Link>
             <Link 
               href="/clinics" 
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-5 py-2.5 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
             >
               Clinics
             </Link>
             <Link 
               href="/tournaments" 
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-5 py-2.5 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
             >
               Tournaments
             </Link>
             <a 
               href="#explore-states" 
               onClick={scrollToExplore}
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-5 py-2.5 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
             >
               Explore
             </a>
@@ -84,7 +84,7 @@ export default function Navbar() {
           <div className="hidden md:block">
             <Link 
               href="/add-program" 
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all shadow-md shadow-red-600/20 hover:shadow-lg hover:shadow-red-600/30 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#e87a00] text-white font-bold rounded-xl hover:opacity-90 shadow-lg"
             >
               <PlusIcon />
               Add Program
@@ -94,7 +94,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+            className="md:hidden p-2 text-[#345c72] hover:text-[#001f3d] hover:bg-[#f6f6f6] rounded-xl"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
@@ -104,32 +104,32 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white shadow-lg">
-          <div className="container py-4 space-y-1">
+        <div className="md:hidden border-t border-gray-100 bg-white shadow-lg">
+          <div className="container max-w-7xl mx-auto px-4 py-6 space-y-2">
             <Link 
               href="/teams" 
-              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="block px-5 py-3 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Teams
             </Link>
             <Link 
               href="/leagues" 
-              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="block px-5 py-3 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Leagues
             </Link>
             <Link 
               href="/clinics" 
-              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="block px-5 py-3 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Clinics
             </Link>
             <Link 
               href="/tournaments" 
-              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="block px-5 py-3 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Tournaments
@@ -137,16 +137,16 @@ export default function Navbar() {
             <a 
               href="#explore-states" 
               onClick={scrollToExplore}
-              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="block px-5 py-3 text-[#345c72] hover:text-[#001f3d] font-semibold rounded-xl hover:bg-[#f6f6f6]"
             >
               Explore
             </a>
             
             {/* Mobile CTA */}
-            <div className="pt-3">
+            <div className="pt-4">
               <Link 
                 href="/add-program" 
-                className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors shadow-md"
+                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-[#e87a00] text-white font-bold rounded-xl shadow-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <PlusIcon />
