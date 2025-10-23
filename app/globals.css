@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { color: #111827; background: #fff; }
+.container { max-width: 1024px; margin: 0 auto; padding: 1rem; }
+.btn { @apply px-3 py-2 rounded-lg border font-medium; }
+.btn-primary { @apply bg-black text-white hover:bg-gray-900; }
+.card { @apply rounded-2xl border p-4 shadow-sm; }
+.link { @apply text-blue-600 hover:underline; }
+.small { @apply text-xs text-gray-500; }
