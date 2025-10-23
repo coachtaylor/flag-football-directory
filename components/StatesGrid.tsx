@@ -3,11 +3,61 @@ import { supabase } from '@/lib/supabase'
 import { US_STATES } from '@/lib/states'
 import Link from 'next/link'
 
-const ArrowRightIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+const MapPinIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
   </svg>
 )
+
+const ChevronRightIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+)
+
+// Color schemes for cards - alternating between brand colors
+const colorSchemes = [
+  {
+    bg: 'bg-[#345c72]',           // Blue-gray
+    text: 'text-white',
+    iconBg: 'bg-white/10',
+    iconText: 'text-white',
+    countBg: 'bg-white/10',
+    countText: 'text-white',
+    shadow: 'shadow-[#345c72]/20',
+    hoverShadow: 'hover:shadow-[#345c72]/30',
+  },
+  {
+    bg: 'bg-[#001f3d]',           // Navy
+    text: 'text-white',
+    iconBg: 'bg-white/10',
+    iconText: 'text-white',
+    countBg: 'bg-white/10',
+    countText: 'text-white',
+    shadow: 'shadow-[#001f3d]/20',
+    hoverShadow: 'hover:shadow-[#001f3d]/30',
+  },
+  {
+    bg: 'bg-[#e87a00]',           // Orange
+    text: 'text-white',
+    iconBg: 'bg-white/10',
+    iconText: 'text-white',
+    countBg: 'bg-white/10',
+    countText: 'text-white',
+    shadow: 'shadow-[#e87a00]/20',
+    hoverShadow: 'hover:shadow-[#e87a00]/30',
+  },
+  {
+    bg: 'bg-[#001f3d]',           // Navy (repeat)
+    text: 'text-white',
+    iconBg: 'bg-white/10',
+    iconText: 'text-white',
+    countBg: 'bg-white/10',
+    countText: 'text-white',
+    shadow: 'shadow-[#001f3d]/20',
+    hoverShadow: 'hover:shadow-[#001f3d]/30',
+  },
+]
 
 export default async function StatesGrid() {
   const today = new Date().toISOString().slice(0,10)
@@ -53,88 +103,82 @@ export default async function StatesGrid() {
   if (!active.length) return null
 
   return (
-    <section id="explore-states" className="py-20 lg:py-24 bg-white">
-      <div className="container max-w-7xl mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#001f3d] mb-4">
-            Browse by State
-          </h2>
-          <p className="text-xl text-[#345c72]">
-            {active.length} {active.length === 1 ? 'state' : 'states'} with active programs
-          </p>
-        </div>
+    <section id="explore-states" className="section-sm">
+      {/* Section Header */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold text-[#001f3d] mb-2">
+          Browse by State
+        </h2>
+        <p className="text-[#345c72]">
+          {active.length} {active.length === 1 ? 'state' : 'states'} with active programs
+        </p>
+      </div>
 
-        {/* States Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {active.map((s) => (
-            <StateCard key={s.code} state={s} />
-          ))}
-        </div>
+      {/* States Grid */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {active.map((s, index) => (
+          <StateCard key={s.code} state={s} colorScheme={colorSchemes[index % colorSchemes.length]} />
+        ))}
       </div>
     </section>
   )
 }
 
 // Individual State Card Component
-function StateCard({ state }: { state: any }) {
-  // Rotate between the 3 main colors for variety
-  const colors = [
-    { bg: 'bg-[#001f3d]', text: 'text-[#001f3d]' },
-    { bg: 'bg-[#345c72]', text: 'text-[#345c72]' },
-    { bg: 'bg-[#e87a00]', text: 'text-[#e87a00]' },
-  ]
-  
-  const colorIndex = state.name.charCodeAt(0) % colors.length
-  const color = colors[colorIndex]
-
+function StateCard({ state, colorScheme }: { state: any; colorScheme: typeof colorSchemes[0] }) {
   return (
     <Link 
       href={`/states/${state.code.toLowerCase()}`}
-      className="block bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-gray-100"
+      className="group block bg-white rounded-2xl overflow-hidden border-2 border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-gray-200 hover:-translate-y-1"
     >
-      {/* Colored header */}
-      <div className={`${color.bg} p-6 text-white`}>
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-2xl font-bold mb-1">
-              {state.name}
-            </h3>
-            <p className="text-white/90 text-sm font-medium">
-              {state.total} {state.total === 1 ? 'program' : 'programs'}
-            </p>
+      {/* Colored Header with state name - WHITE TEXT */}
+      <div className={`
+        ${colorScheme.bg} ${colorScheme.text}
+        p-5 transition-all duration-300
+      `}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+        
+            <div>
+              <h3 className="font-semibold text-white">
+                {state.name}
+              </h3>
+              <p className="text-xs text-white/80">
+                {state.total} {state.total === 1 ? 'program' : 'programs'}
+              </p>
+            </div>
           </div>
-          <div className="bg-white/20 p-2 rounded-xl">
-            <ArrowRightIcon />
+          <div className="text-white transition-transform duration-300 group-hover:translate-x-1">
+            <ChevronRightIcon />
           </div>
         </div>
       </div>
 
-      {/* Program counts */}
-      <div className="p-6 bg-[#f6f6f6]">
-        <div className="grid grid-cols-2 gap-3">
+      {/* White Background - Program counts with dark text */}
+      <div className="p-5">
+        <div className="grid grid-cols-2 gap-2 text-xs">
           {state.t > 0 && (
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#001f3d] mb-1">{state.t}</div>
-              <div className="text-sm text-[#345c72] font-medium">Teams</div>
+            <div className="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-lg border border-gray-100">
+              <span className="text-[#345c72]">Teams</span>
+              <span className="font-semibold text-[#001f3d]">{state.t}</span>
             </div>
           )}
           {state.l > 0 && (
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#001f3d] mb-1">{state.l}</div>
-              <div className="text-sm text-[#345c72] font-medium">Leagues</div>
+            <div className="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-lg border border-gray-100">
+              <span className="text-[#345c72]">Leagues</span>
+              <span className="font-semibold text-[#001f3d]">{state.l}</span>
             </div>
           )}
           {state.c > 0 && (
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#001f3d] mb-1">{state.c}</div>
-              <div className="text-sm text-[#345c72] font-medium">Clinics</div>
+            <div className="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-lg border border-gray-100">
+              <span className="text-[#345c72]">Clinics</span>
+              <span className="font-semibold text-[#001f3d]">{state.c}</span>
             </div>
           )}
           {state.tr > 0 && (
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#001f3d] mb-1">{state.tr}</div>
-              <div className="text-sm text-[#345c72] font-medium">Tournaments</div>
+            <div className="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-lg border border-gray-100">
+              <span className="text-[#345c72]">Tournaments</span>
+              <span className="font-semibold text-[#001f3d]">{state.tr}</span>
             </div>
           )}
         </div>
