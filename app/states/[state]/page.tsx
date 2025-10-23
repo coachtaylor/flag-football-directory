@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabase'
 import { US_STATES } from '@/lib/states'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 const TeamIcon = () => (
   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,148 +85,148 @@ export default async function StatePage({ params }: { params: { state: string } 
   const totalPrograms = (teams?.length || 0) + (leagues?.length || 0) + (clinics?.length || 0) + (tournaments?.length || 0)
 
   return (
-    <div className="container py-8">
-      {/* Header */}
-      <header className="mb-12">
-        <nav className="text-sm text-secondary mb-4">
-          <Link href="/" className="hover:text-primary">Home</Link>
-          <span className="mx-2">/</span>
-          <span className="text-primary">{stateInfo.name}</span>
-        </nav>
+    <div className="bg-gray-50 min-h-screen">
+      <div className="container py-8">
+        {/* Breadcrumbs */}
+        <Breadcrumbs 
+          items={[
+            { label: stateInfo.name }
+          ]} 
+          className="mb-8"
+        />
         
-        <div className="flex items-end justify-between">
-          <div>
-            <h1 className="text-4xl font-bold text-primary mb-2">
-              Flag Football in {stateInfo.name}
-            </h1>
-            <p className="text-lg text-secondary">
-              {totalPrograms} {totalPrograms === 1 ? 'program' : 'programs'} available
-            </p>
-          </div>
-        </div>
-      </header>
-
-      {/* Teams Section */}
-      {teams && teams.length > 0 && (
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg">
-                <TeamIcon />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-primary">Teams</h2>
-                <p className="text-sm text-secondary">{teams.length} {teams.length === 1 ? 'team' : 'teams'}</p>
-              </div>
-            </div>
-            <Link href={`/teams?state=${stateCode}`} className="btn btn-outline btn-sm">
-              View All Teams →
-            </Link>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {teams.slice(0, 6).map((team: any) => (
-              <TeamCard key={team.id} team={team} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Leagues Section */}
-      {leagues && leagues.length > 0 && (
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-blue-700 to-blue-900 text-white shadow-lg">
-                <LeagueIcon />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-primary">Leagues</h2>
-                <p className="text-sm text-secondary">{leagues.length} {leagues.length === 1 ? 'league' : 'leagues'}</p>
-              </div>
-            </div>
-            <Link href={`/leagues?state=${stateCode}`} className="btn btn-outline btn-sm">
-              View All Leagues →
-            </Link>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {leagues.slice(0, 6).map((league: any) => (
-              <LeagueCard key={league.id} league={league} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Clinics Section */}
-      {clinics && clinics.length > 0 && (
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-lg">
-                <ClinicIcon />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-primary">Clinics</h2>
-                <p className="text-sm text-secondary">{clinics.length} upcoming {clinics.length === 1 ? 'clinic' : 'clinics'}</p>
-              </div>
-            </div>
-            <Link href={`/clinics?state=${stateCode}`} className="btn btn-outline btn-sm">
-              View All Clinics →
-            </Link>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {clinics.slice(0, 6).map((clinic: any) => (
-              <EventCard key={clinic.id} event={clinic} type="clinic" />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Tournaments Section */}
-      {tournaments && tournaments.length > 0 && (
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-orange-600 text-white shadow-lg">
-                <TournamentIcon />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-primary">Tournaments</h2>
-                <p className="text-sm text-secondary">{tournaments.length} upcoming {tournaments.length === 1 ? 'tournament' : 'tournaments'}</p>
-              </div>
-            </div>
-            <Link href={`/tournaments?state=${stateCode}`} className="btn btn-outline btn-sm">
-              View All Tournaments →
-            </Link>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tournaments.slice(0, 6).map((tournament: any) => (
-              <EventCard key={tournament.id} event={tournament} type="tournament" />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Empty State */}
-      {totalPrograms === 0 && (
-        <div className="empty-state">
-          <div className="empty-state-icon">
-            <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <h3 className="empty-state-title">No programs yet in {stateInfo.name}</h3>
-          <p className="empty-state-description">
-            Be the first to add a program in this state
+        {/* Header */}
+        <header className="mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Flag Football in {stateInfo.name}
+          </h1>
+          <p className="text-lg text-gray-600">
+            {totalPrograms} {totalPrograms === 1 ? 'program' : 'programs'} available
           </p>
-          <Link href="/add-program" className="btn btn-primary mt-4">
-            Add Program
-          </Link>
-        </div>
-      )}
+        </header>
+
+        {/* Teams Section */}
+        {teams && teams.length > 0 && (
+          <section className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-red-600 text-white shadow-md">
+                  <TeamIcon />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Teams</h2>
+                  <p className="text-sm text-gray-600">{teams.length} {teams.length === 1 ? 'team' : 'teams'}</p>
+                </div>
+              </div>
+              <Link href={`/teams?state=${stateCode}`} className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors">
+                View All Teams →
+              </Link>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {teams.slice(0, 6).map((team: any) => (
+                <TeamCard key={team.id} team={team} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Leagues Section */}
+        {leagues && leagues.length > 0 && (
+          <section className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-700 text-white shadow-md">
+                  <LeagueIcon />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Leagues</h2>
+                  <p className="text-sm text-gray-600">{leagues.length} {leagues.length === 1 ? 'league' : 'leagues'}</p>
+                </div>
+              </div>
+              <Link href={`/leagues?state=${stateCode}`} className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors">
+                View All Leagues →
+              </Link>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {leagues.slice(0, 6).map((league: any) => (
+                <LeagueCard key={league.id} league={league} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Clinics Section */}
+        {clinics && clinics.length > 0 && (
+          <section className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-teal-600 text-white shadow-md">
+                  <ClinicIcon />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Clinics</h2>
+                  <p className="text-sm text-gray-600">{clinics.length} upcoming {clinics.length === 1 ? 'clinic' : 'clinics'}</p>
+                </div>
+              </div>
+              <Link href={`/clinics?state=${stateCode}`} className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors">
+                View All Clinics →
+              </Link>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {clinics.slice(0, 6).map((clinic: any) => (
+                <EventCard key={clinic.id} event={clinic} type="clinic" />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Tournaments Section */}
+        {tournaments && tournaments.length > 0 && (
+          <section className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-orange-600 text-white shadow-md">
+                  <TournamentIcon />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Tournaments</h2>
+                  <p className="text-sm text-gray-600">{tournaments.length} upcoming {tournaments.length === 1 ? 'tournament' : 'tournaments'}</p>
+                </div>
+              </div>
+              <Link href={`/tournaments?state=${stateCode}`} className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors">
+                View All Tournaments →
+              </Link>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {tournaments.slice(0, 6).map((tournament: any) => (
+                <EventCard key={tournament.id} event={tournament} type="tournament" />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Empty State */}
+        {totalPrograms === 0 && (
+          <div className="text-center py-16">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">No programs yet in {stateInfo.name}</h3>
+            <p className="text-gray-600 mb-6">
+              Be the first to add a program in this state
+            </p>
+            <Link href="/add-program" className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors shadow-md">
+              Add Program
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -233,15 +234,15 @@ export default async function StatePage({ params }: { params: { state: string } 
 // Card Components
 function TeamCard({ team }: { team: any }) {
   return (
-    <Link href={`/teams/${team.slug}`} className="card card-hover card-padding-sm">
+    <Link href={`/teams/${team.slug}`} className="block bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md hover:border-gray-300 transition-all">
       {team.verified && (
-        <span className="badge badge-success mb-2">Verified</span>
+        <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-50 rounded mb-2">Verified</span>
       )}
-      <h3 className="font-semibold text-primary mb-1">{team.name}</h3>
-      <p className="text-sm text-secondary mb-2">{team.cities?.name}</p>
+      <h3 className="font-semibold text-gray-900 mb-1">{team.name}</h3>
+      <p className="text-sm text-gray-600 mb-2">{team.cities?.name}</p>
       <div className="flex flex-wrap gap-1">
         {team.age_groups?.slice(0, 3).map((age: string) => (
-          <span key={age} className="badge badge-gray text-xs">{age}</span>
+          <span key={age} className="px-2 py-0.5 text-xs text-gray-600 bg-gray-100 rounded">{age}</span>
         ))}
       </div>
     </Link>
@@ -250,14 +251,14 @@ function TeamCard({ team }: { team: any }) {
 
 function LeagueCard({ league }: { league: any }) {
   return (
-    <Link href={`/leagues/${league.slug}`} className="card card-hover card-padding-sm">
+    <Link href={`/leagues/${league.slug}`} className="block bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md hover:border-gray-300 transition-all">
       {league.verified && (
-        <span className="badge badge-success mb-2">Verified</span>
+        <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-50 rounded mb-2">Verified</span>
       )}
-      <h3 className="font-semibold text-primary mb-1">{league.name}</h3>
-      <p className="text-sm text-secondary mb-2">{league.cities?.name}</p>
+      <h3 className="font-semibold text-gray-900 mb-1">{league.name}</h3>
+      <p className="text-sm text-gray-600 mb-2">{league.cities?.name}</p>
       {league.fees && (
-        <p className="text-sm font-semibold text-primary">${league.fees}</p>
+        <p className="text-sm font-semibold text-gray-900">${league.fees}</p>
       )}
     </Link>
   )
@@ -269,13 +270,13 @@ function EventCard({ event, type }: { event: any; type: string }) {
     : new Date(event.start_date).toLocaleDateString()
 
   return (
-    <Link href={`/${type}s/${event.slug || event.id}`} className="card card-hover card-padding-sm">
+    <Link href={`/${type}s/${event.slug || event.id}`} className="block bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md hover:border-gray-300 transition-all">
       {event.verified && (
-        <span className="badge badge-success mb-2">Verified</span>
+        <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-50 rounded mb-2">Verified</span>
       )}
-      <h3 className="font-semibold text-primary mb-1">{event.name}</h3>
-      <p className="text-sm text-secondary mb-1">{event.location}</p>
-      <p className="text-xs text-tertiary">{dateStr}</p>
+      <h3 className="font-semibold text-gray-900 mb-1">{event.name}</h3>
+      <p className="text-sm text-gray-600 mb-1">{event.location}</p>
+      <p className="text-xs text-gray-500">{dateStr}</p>
     </Link>
   )
 }
