@@ -38,40 +38,61 @@ const AcademicCapIcon = () => (
 
 type CategoryType = 'teams' | 'leagues' | 'clinics' | 'tournaments'
 
-const categories = [
+const categories: Array<{
+  key: CategoryType
+  label: string
+  description: string
+  icon: () => JSX.Element
+  color: string
+  bgColor: string
+  hoverBgColor: string
+  shadowColor: string
+}> = [
   {
     key: 'teams',
     label: 'Teams',
-    description: 'Find youth & adult teams',
+    description: 'Youth & adult teams',
     icon: UsersIcon,
-    gradient: 'from-red-500 to-red-600',  // Red for teams (energy)
+    color: 'text-red-600',
+    bgColor: 'bg-red-50',
+    hoverBgColor: 'hover:bg-red-100',
+    shadowColor: 'hover:shadow-red-100',
   },
   {
     key: 'leagues',
     label: 'Leagues',
-    description: 'Compare fees & divisions',
+    description: 'Organized competitions',
     icon: FlagIcon,
-    gradient: 'from-blue-700 to-blue-900',  // Navy for leagues (structure)
+    color: 'text-blue-700',
+    bgColor: 'bg-blue-50',
+    hoverBgColor: 'hover:bg-blue-100',
+    shadowColor: 'hover:shadow-blue-100',
   },
   {
     key: 'clinics',
     label: 'Clinics',
-    description: 'Training & skill sessions',
+    description: 'Skills & training',
     icon: AcademicCapIcon,
-    gradient: 'from-teal-500 to-teal-600',  // Teal for clinics (growth)
+    color: 'text-teal-600',
+    bgColor: 'bg-teal-50',
+    hoverBgColor: 'hover:bg-teal-100',
+    shadowColor: 'hover:shadow-teal-100',
   },
   {
     key: 'tournaments',
     label: 'Tournaments',
-    description: 'Upcoming events',
+    description: 'Competitive events',
     icon: TrophyIcon,
-    gradient: 'from-red-600 to-orange-600',  // Red-orange for tournaments (competition)
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50',
+    hoverBgColor: 'hover:bg-orange-100',
+    shadowColor: 'hover:shadow-orange-100',
   },
 ]
 
 export default function Hero() {
   const router = useRouter()
-  const [type, setType] = useState<CategoryType>('teams')
+  const [type, setType] = useState<CategoryType>('leagues')
   const [q, setQ] = useState('')
   const [st, setSt] = useState('')
 
@@ -84,132 +105,151 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-base">
-      {/* Background gradient blobs */}
-      <div className="absolute inset-0 opacity-30 dark:opacity-20">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-200 dark:bg-red-900 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-200 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-teal-200 dark:bg-teal-900 rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '4s' }} />
-      </div>
-
-      <div className="container section relative">
-        {/* Main headline */}
-        <div className="max-w-4xl mx-auto text-center mb-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
-            Find Your Perfect{' '}
-            <span className="text-gradient-primary">Flag Football</span> Match
-          </h1>
-          <p className="text-xl text-secondary mb-2">
-            Search thousands of teams, leagues, clinics, and tournaments across all 50 states
-          </p>
-          <div className="flex items-center justify-center gap-6 text-sm text-secondary">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-              <span>Updated daily</span>
-            </div>
-            <div className="text-tertiary">•</div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>Verified programs</span>
-            </div>
+    <section className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
+      {/* Subtle background decoration */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-red-50/20 via-transparent to-blue-50/20" />
+      
+      <div className="container py-16 lg:py-24 relative">
+        {/* Main Content */}
+        <div className="max-w-4xl mx-auto">
+          {/* Headline */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-tight drop-shadow-sm">
+              Find Flag Football Programs{' '}
+              <span className="text-red-600">Near You</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+              Search thousands of teams, leagues, clinics, and tournaments across the United States
+            </p>
           </div>
-        </div>
 
-        {/* Enhanced search card */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="card card-padding shadow-xl">
-            {/* Category selector */}
-            <div className="flex items-center gap-2 mb-6 overflow-x-auto scrollbar-hide pb-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat.key}
-                  type="button"
-                  onClick={() => setType(cat.key as CategoryType)}
-                  className={`
-                    flex items-center gap-2 px-4 py-2.5 rounded-lg 
-                    font-medium text-sm whitespace-nowrap
-                    transition-all duration-200
-                    ${
-                      type === cat.key
-                        ? 'btn-primary shadow-md scale-105'
-                        : 'bg-muted text-secondary hover:bg-border-strong'
-                    }
-                  `}
-                  aria-pressed={type === cat.key}
-                >
-                  <cat.icon />
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Search form */}
-            <form onSubmit={handleSearch} className="space-y-4">
-              <div className="grid sm:grid-cols-[1fr,auto] gap-3">
-                {/* Search input */}
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <SearchIcon />
-                  </div>
-                  <input
-                    type="text"
-                    className="input pl-10 h-12"
-                    placeholder={`Search ${type} by name, city, or keyword...`}
-                    value={q}
-                    onChange={(e) => setQ(e.target.value)}
-                    aria-label="Search query"
-                  />
-                  {q && (
+          {/* Search Card - Enhanced with shadows and depth */}
+          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 sm:p-8 backdrop-blur-sm border border-gray-100">
+            <form onSubmit={handleSearch}>
+              {/* Category Selection */}
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-gray-900 mb-4">
+                  What are you looking for?
+                </label>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  {categories.map((cat) => (
                     <button
+                      key={cat.key}
                       type="button"
-                      onClick={() => setQ('')}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-tertiary hover:text-secondary"
-                      aria-label="Clear search"
+                      onClick={() => setType(cat.key as CategoryType)}
+                      className={`
+                        relative p-4 rounded-xl border-2 text-left transition-all duration-200
+                        ${
+                          type === cat.key
+                            ? 'border-gray-900 bg-gray-900 text-white shadow-lg shadow-gray-300/50 scale-[1.02]'
+                            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
+                        }
+                      `}
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
+                      <div className={`font-semibold mb-1 ${type === cat.key ? 'text-white' : 'text-gray-900'}`}>
+                        {cat.label}
+                      </div>
+                      <div className={`text-xs ${type === cat.key ? 'text-gray-200' : 'text-gray-500'}`}>
+                        {cat.description}
+                      </div>
+                      
+                      {/* Selected indicator */}
+                      {type === cat.key && (
+                        <div className="absolute top-3 right-3 w-2 h-2 bg-white rounded-full shadow-sm" />
+                      )}
                     </button>
-                  )}
-                </div>
-
-                {/* State selector */}
-                <select
-                  className="select h-12 min-w-[160px]"
-                  value={st}
-                  onChange={(e) => setSt(e.target.value)}
-                  aria-label="Select state"
-                >
-                  <option value="">All states</option>
-                  {US_STATES.map((s) => (
-                    <option key={s.code} value={s.code}>
-                      {s.name}
-                    </option>
                   ))}
-                </select>
+                </div>
               </div>
 
-              {/* Action buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button type="submit" className="btn btn-primary btn-lg flex-1">
-                  <SearchIcon />
-                  Search {type}
-                </button>
-                <a href="/add-program" className="btn btn-accent btn-lg sm:w-auto">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  Add Program
-                </a>
+              {/* Search Inputs */}
+              <div className="space-y-4">
+                {/* Search Input */}
+                <div>
+                  <label htmlFor="search" className="block text-sm font-semibold text-gray-900 mb-2">
+                    Search by name or location
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                      <SearchIcon />
+                    </div>
+                    <input
+                      id="search"
+                      type="text"
+                      className="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all shadow-sm focus:shadow-md"
+                      placeholder={`Search ${type}...`}
+                      value={q}
+                      onChange={(e) => setQ(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* State and Search Button */}
+                <div className="grid sm:grid-cols-[1fr,auto] gap-3">
+                  <div>
+                    <label htmlFor="state" className="block text-sm font-semibold text-gray-900 mb-2">
+                      State (optional)
+                    </label>
+                    <select
+                      id="state"
+                      className="w-full px-4 py-3.5 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all appearance-none bg-white cursor-pointer shadow-sm focus:shadow-md"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                        backgroundPosition: 'right 0.75rem center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '1.5em 1.5em',
+                        paddingRight: '2.5rem',
+                      }}
+                      value={st}
+                      onChange={(e) => setSt(e.target.value)}
+                    >
+                      <option value="">All states</option>
+                      {US_STATES.map((s) => (
+                        <option key={s.code} value={s.code}>
+                          {s.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="sm:pt-[30px]">
+                    <button 
+                      type="submit" 
+                      className="w-full sm:w-auto px-8 py-3.5 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition-all shadow-lg shadow-red-600/30 hover:shadow-xl hover:shadow-red-600/40 hover:-translate-y-0.5"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-lg">
+              <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="font-medium">Updated daily</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-lg">
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              </svg>
+              <span className="font-medium">All 50 states</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-lg">
+              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span className="font-medium">Verified programs</span>
+            </div>
+          </div>
         </div>
 
-        {/* Quick access cards */}
-        <div className="max-w-5xl mx-auto">
+        {/* Quick Access Cards - Enhanced with depth */}
+        <div className="max-w-5xl mx-auto mt-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {categories.map((cat) => {
               const Icon = cat.icon
@@ -217,13 +257,18 @@ export default function Hero() {
                 <a
                   key={cat.key}
                   href={`/${cat.key}`}
-                  className="group card card-hover card-padding text-center"
+                  className={`group relative overflow-hidden rounded-xl bg-white border border-gray-200 p-6 text-center transition-all duration-200 hover:shadow-xl ${cat.shadowColor} hover:-translate-y-1 shadow-md`}
                 >
-                  <div className={`w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-200`}>
-                    <Icon />
+                  {/* Subtle background gradient on hover */}
+                  <div className={`absolute inset-0 ${cat.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} />
+                  
+                  <div className="relative">
+                    <div className={`w-14 h-14 mx-auto mb-4 rounded-xl ${cat.bgColor} flex items-center justify-center ${cat.color} group-hover:scale-110 transition-transform duration-200 shadow-sm`}>
+                      <Icon />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-1 text-base">{cat.label}</h3>
+                    <p className="text-xs text-gray-600">{cat.description}</p>
                   </div>
-                  <h3 className="font-semibold text-primary mb-1">{cat.label}</h3>
-                  <p className="text-xs text-secondary">{cat.description}</p>
                 </a>
               )
             })}
@@ -233,17 +278,3 @@ export default function Hero() {
     </section>
   )
 }
-
-/* ===== COLOR SCHEME =====
-
-Primary (Red):     #DC2626 - Energy, action, passion
-Secondary (Navy):  #1E40AF - Trust, stability, professional
-Accent (Teal):     #14B8A6 - Modern, fresh, growth
-
-Gradients:
-- Red to Red:      Teams (energy)
-- Navy to Navy:    Leagues (structure)
-- Teal to Teal:    Clinics (growth)
-- Red to Orange:   Tournaments (competition)
-
-*/

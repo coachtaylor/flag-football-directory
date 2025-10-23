@@ -1,210 +1,161 @@
+// components/Navbar.tsx
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-const navLinks = [
-  { href: '/teams', label: 'Teams', icon: '👥' },
-  { href: '/leagues', label: 'Leagues', icon: '🏆' },
-  { href: '/clinics', label: 'Clinics', icon: '📚' },
-  { href: '/tournaments', label: 'Tournaments', icon: '⚡' },
-]
+const PlusIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+  </svg>
+)
+
+const MenuIcon = () => (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+)
+
+const CloseIcon = () => (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+  </svg>
+)
 
 export default function Navbar() {
-  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
 
-  // Handle scroll for navbar shadow
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
+  const scrollToExplore = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    const exploreSection = document.getElementById('explore-states')
+    if (exploreSection) {
+      exploreSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Close mobile menu when route changes
-  useEffect(() => {
     setMobileMenuOpen(false)
-  }, [pathname])
-
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [mobileMenuOpen])
-
-  const isHome = pathname === '/'
-  const isActive = (href: string) => pathname.startsWith(href)
+  }
 
   return (
-    <>
-      <header 
-        className={`
-          sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md
-          transition-all duration-200
-          ${scrolled ? 'shadow-md' : 'border-[hsl(var(--border-subtle))]'}
-        `}
-      >
-        <nav className="container">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div className="container">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center text-white font-bold shadow-md">
+              FF
+            </div>
+            <span className="font-bold text-xl text-gray-900">FlagFootball</span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1">
             <Link 
-              href="/" 
-              className="flex items-center gap-3 group"
+              href="/teams" 
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
             >
-              <div className="flex items-center justify-center w-10 h-10 rounded-[var(--radius-md)] bg-gradient-to-br from-green-500 to-blue-600 shadow-sm group-hover:shadow-md transition-shadow duration-200">
-                <span className="text-xl">🏈</span>
-              </div>
-              <div className="hidden sm:block">
-                <div className="font-bold text-lg text-[hsl(var(--neutral-900))] leading-tight">
-                  FlagFootball
-                </div>
-                <div className="text-xs text-[hsl(var(--neutral-500))] leading-tight">
-                  Directory
-                </div>
-              </div>
+              Teams
             </Link>
+            <Link 
+              href="/leagues" 
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Leagues
+            </Link>
+            <Link 
+              href="/clinics" 
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Clinics
+            </Link>
+            <Link 
+              href="/tournaments" 
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Tournaments
+            </Link>
+            <a 
+              href="#explore-states" 
+              onClick={scrollToExplore}
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Explore
+            </a>
+          </div>
 
-            {/* Desktop Navigation */}
-            {!isHome && (
-              <div className="hidden md:flex items-center gap-1">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`
-                      px-4 py-2 rounded-[var(--radius-md)] text-sm font-medium
-                      transition-all duration-200 flex items-center gap-2
-                      ${isActive(link.href)
-                        ? 'bg-green-50 text-[hsl(var(--brand-primary))]'
-                        : 'text-[hsl(var(--neutral-700))] hover:bg-[hsl(var(--neutral-100))] hover:text-[hsl(var(--neutral-900))]'
-                      }
-                    `}
-                  >
-                    <span className="text-base">{link.icon}</span>
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            )}
+          {/* CTA Button - Desktop */}
+          <div className="hidden md:block">
+            <Link 
+              href="/add-program" 
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all shadow-md shadow-red-600/20 hover:shadow-lg hover:shadow-red-600/30 hover:-translate-y-0.5"
+            >
+              <PlusIcon />
+              Add Program
+            </Link>
+          </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-3">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-gray-200 bg-white shadow-lg">
+          <div className="container py-4 space-y-1">
+            <Link 
+              href="/teams" 
+              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Teams
+            </Link>
+            <Link 
+              href="/leagues" 
+              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Leagues
+            </Link>
+            <Link 
+              href="/clinics" 
+              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Clinics
+            </Link>
+            <Link 
+              href="/tournaments" 
+              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Tournaments
+            </Link>
+            <a 
+              href="#explore-states" 
+              onClick={scrollToExplore}
+              className="block px-4 py-3 text-gray-700 hover:text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Explore
+            </a>
+            
+            {/* Mobile CTA */}
+            <div className="pt-3">
               <Link 
                 href="/add-program" 
-                className="btn btn-primary btn-sm"
+                className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors shadow-md"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
+                <PlusIcon />
                 Add Program
               </Link>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-[var(--radius-md)] hover:bg-[hsl(var(--neutral-100))] transition-colors duration-200"
-              aria-label="Toggle mobile menu"
-              aria-expanded={mobileMenuOpen}
-            >
-              <svg 
-                className="w-6 h-6 text-[hsl(var(--neutral-700))]" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
           </div>
-        </nav>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden animate-fade-in"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
-          
-          {/* Menu Panel */}
-          <div className="fixed top-16 left-0 right-0 bottom-0 bg-white z-40 md:hidden animate-slide-down overflow-y-auto">
-            <div className="container py-6">
-              {/* Navigation Links */}
-              {!isHome && (
-                <div className="space-y-1 mb-6">
-                  <div className="text-xs font-semibold text-[hsl(var(--neutral-500))] uppercase tracking-wide mb-3 px-3">
-                    Browse
-                  </div>
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`
-                        flex items-center gap-3 px-3 py-3 rounded-[var(--radius-md)]
-                        text-base font-medium transition-colors duration-150
-                        ${isActive(link.href)
-                          ? 'bg-green-50 text-[hsl(var(--brand-primary))]'
-                          : 'text-[hsl(var(--neutral-700))] active:bg-[hsl(var(--neutral-100))]'
-                        }
-                      `}
-                    >
-                      <span className="text-2xl">{link.icon}</span>
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* Primary Actions */}
-              <div className="space-y-3">
-                <Link 
-                  href="/add-program" 
-                  className="btn btn-primary btn-lg w-full"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  Add Your Program
-                </Link>
-                
-                <Link 
-                  href="/" 
-                  className="btn btn-secondary btn-lg w-full"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
-                  Back to Home
-                </Link>
-              </div>
-
-              {/* Footer Info */}
-              <div className="mt-8 pt-6 border-t border-[hsl(var(--border-subtle))]">
-                <p className="text-sm text-[hsl(var(--neutral-600))] text-center">
-                  Connecting players and programs nationwide
-                </p>
-              </div>
-            </div>
-          </div>
-        </>
+        </div>
       )}
-    </>
+    </nav>
   )
 }
