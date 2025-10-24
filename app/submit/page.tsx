@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Breadcrumbs from '@/components/Breadcrumbs'
 export default function SubmitPage() {
   const [type, setType] = useState('league')
   const [name, setName] = useState('')
@@ -22,6 +23,7 @@ export default function SubmitPage() {
 
   return (
     <section className="grid gap-4 max-w-xl">
+      <Breadcrumbs items={[{ label: 'Submit' }]} className="mb-2" />
       <h1 className="text-2xl font-semibold">Submit a Program / Assignment</h1>
       <form onSubmit={onSubmit} className="grid gap-3">
         <label className="text-sm">Type</label>

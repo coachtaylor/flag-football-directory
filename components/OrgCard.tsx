@@ -6,7 +6,7 @@ export default function OrgCard({ o }: { o: any }) {
       case 'clinic':
         return 'from-[#345c72] to-[#001f3d]'
       case 'tournament':
-        return 'from-[#e87a00] to-[#345c72]'
+        return 'from-[#001f3d] to-[#345c72]'
       default:
         return 'from-[#001f3d] to-[#345c72]'
     }
@@ -17,7 +17,7 @@ export default function OrgCard({ o }: { o: any }) {
       case 'clinic':
         return 'bg-[#345c72]/5 text-[#345c72]'
       case 'tournament':
-        return 'bg-[#e87a00]/5 text-[#e87a00]'
+        return 'bg-[#001f3d]/5 text-[#001f3d]'
       default:
         return 'bg-[#001f3d]/5 text-[#001f3d]'
     }

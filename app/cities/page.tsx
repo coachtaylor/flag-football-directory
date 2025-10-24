@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import CitySearch from '@/components/CitySearch'
 import { JsonLd } from '@/lib/jsonld'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 type City = { id: number; name: string; state: string; slug: string }
 
@@ -26,6 +27,7 @@ export default async function CitiesPage({ searchParams }: { searchParams?: { q?
   return (
     <section className="grid gap-6">
       <JsonLd data={itemList} />
+      <Breadcrumbs items={[{ label: 'Cities' }]} className="mb-2" />
       <h1 className="text-2xl font-semibold">Explore your city</h1>
       <p className="small">Updated: Oct 2025</p>
       <CitySearch cities={(cities || []) as City[]} initialQuery={initialQuery} />

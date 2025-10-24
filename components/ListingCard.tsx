@@ -35,22 +35,7 @@ export default function ListingCard({ item, view = 'grid' }: Props) {
     }
   }
 
-  const getBadgeColor = () => {
-    switch(item.type?.toLowerCase()) {
-      case 'clinic':
-        return 'bg-[#345c72]/5 text-[#345c72]'
-      case 'tournament':
-        return 'bg-[#e87a00]/5 text-[#e87a00]'
-      case 'league':
-        return 'bg-[#001f3d]/5 text-[#001f3d]'
-      case 'team':
-        return 'bg-[#001f3d]/5 text-[#001f3d]'
-      case 'city':
-        return 'bg-[#345c72]/5 text-[#345c72]'
-      default:
-        return 'bg-[#001f3d]/5 text-[#001f3d]'
-    }
-  }
+  const badgeClass = 'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#001f3d]/5 text-[#001f3d]'
 
   if (view === 'list') {
     return (
@@ -64,7 +49,7 @@ export default function ListingCard({ item, view = 'grid' }: Props) {
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-2">
-              <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${getBadgeColor()}`}>
+              <span className={badgeClass}>
                 {item.type}
               </span>
               {item.verified && (
@@ -121,7 +106,7 @@ export default function ListingCard({ item, view = 'grid' }: Props) {
       {/* Content */}
       <div className="p-5">
         <div className="flex items-center justify-between mb-3">
-          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${getBadgeColor()}`}>
+          <span className={badgeClass}>
             {item.type}
           </span>
           {item.verified && (

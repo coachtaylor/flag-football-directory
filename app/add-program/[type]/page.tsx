@@ -2,12 +2,14 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { US_STATES } from '@/lib/states'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 type Kind = 'team'|'league'|'clinic'|'tournament'
 
 export default function AddProgramType({ params }: { params: { type: Kind } }) {
   const router = useRouter()
   const type = params.type
+  const typeLabel = type[0].toUpperCase()+type.slice(1)
   const [submitting, setSubmitting] = useState(false)
   const [err, setErr] = useState<string|undefined>()
 
@@ -72,7 +74,14 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
 
   return (
     <section className="grid gap-6">
-      <h1 className="text-2xl font-semibold">Add a {type[0].toUpperCase()+type.slice(1)}</h1>
+      <Breadcrumbs
+        items={[
+          { label: 'Add Program', href: '/add-program' },
+          { label: typeLabel },
+        ]}
+        className="mb-2"
+      />
+      <h1 className="text-2xl font-semibold">Add a {typeLabel}</h1>
       <form onSubmit={submit} className="card grid gap-4">
         {err && <p className="text-sm text-red-600">{err}</p>}
 

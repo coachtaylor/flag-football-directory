@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabase'
 import ResultsToolbar from '@/components/ResultsToolbar'
 import ListingCard from '@/components/ListingCard'
 import { JsonLd } from '@/lib/jsonld'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const dynamic = 'force-dynamic'
 
@@ -166,27 +167,28 @@ export default async function Explore({ searchParams }: { searchParams: SearchPa
   }
 
   return (
-    <section className="grid gap-6">
+    <section className="container py-8 space-y-6">
       <JsonLd data={itemList} />
+      <Breadcrumbs items={[{ label: 'Explore' }]} className="mb-2" />
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Explore</h1>
-        <div className="small text-gray-600">
-          <span className="mr-2">Category: <strong>{category}</strong></span>
-          {state && <span className="mr-2">State: <strong>{state}</strong></span>}
-          {q && <span className="mr-2">Search: <strong>“{q}”</strong></span>}
-        </div>
+      <div className="space-y-3">
+        <h1 className="section-heading">Explore programs & events</h1>
+        <p className="section-subheading">
+          Tune the filters below to browse verified teams, leagues, clinics, and tournaments across the U.S.
+        </p>
       </div>
 
-      <ResultsToolbar total={total} />
+      <div className="surface-card p-6 sm:p-8">
+        <ResultsToolbar total={total} />
+      </div>
 
       <div className={viewIsList ? 'grid gap-3' : 'grid gap-3 sm:grid-cols-2 md:grid-cols-3'}>
         {items.map((it, idx) => (
           <ListingCard key={idx} item={it} view={viewIsList ? 'list' : 'grid'} />
         ))}
         {!items.length && (
-          <div className="card">
-            <p className="text-sm text-gray-700">No results. Try a broader query or clear filters.</p>
+          <div className="surface-card p-6 text-sm text-[#345c72]">
+            No results. Try a broader query or clear filters.
           </div>
         )}
       </div>

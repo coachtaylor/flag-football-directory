@@ -156,6 +156,22 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .surface-card {
+    @apply rounded-3xl border border-gray-200 bg-white shadow-lg shadow-gray-200/40;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#345c72];
+  }
+
+  .section-heading {
+    @apply text-3xl sm:text-4xl font-bold text-[#001f3d] leading-tight;
+  }
+
+  .section-subheading {
+    @apply text-base sm:text-lg text-[#345c72]/90 max-w-2xl;
+  }
+
   /* Typography scale */
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
