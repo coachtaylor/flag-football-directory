@@ -27,16 +27,16 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
   return (
     <nav 
-      className={`flex items-center gap-3 text-base py-4 ${className}`}
+      className={`flex items-center gap-3 text-sm text-[#345c72]/80 py-4 ${className}`}
       aria-label="Breadcrumb"
     >
       {/* Home Link */}
       <Link 
         href="/" 
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors group"
+        className="flex items-center gap-2 text-[#345c72]/80 hover:text-[#001f3d] transition-colors group"
       >
         <HomeIcon />
-        <span className="font-medium group-hover:underline">Home</span>
+        <span className="font-medium group-hover:text-[#001f3d] group-hover:underline">Home</span>
       </Link>
 
       {/* Breadcrumb Items */}
@@ -46,19 +46,19 @@ export default function Breadcrumbs({ items, className = '' }: BreadcrumbsProps)
         return (
           <div key={index} className="flex items-center gap-3">
             {/* Separator */}
-            <div className="text-gray-400">
+            <div className="text-[#345c72]/40">
               <ChevronRightIcon />
             </div>
 
             {/* Breadcrumb Item */}
             {isLast || !item.href ? (
-              <span className="text-gray-900 font-semibold">
+              <span className="text-[#001f3d] font-semibold">
                 {item.label}
               </span>
             ) : (
               <Link 
                 href={item.href} 
-                className="text-gray-600 hover:text-gray-900 transition-colors font-medium hover:underline"
+                className="text-[#345c72]/80 hover:text-[#001f3d] transition-colors font-medium hover:underline"
               >
                 {item.label}
               </Link>

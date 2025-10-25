@@ -73,27 +73,29 @@ export default async function StatesGrid() {
   const otherStates = activeStates.slice(3)
 
   return (
-    <div id="explore-states" className="space-y-12">
-      <div className="text-center">
-        <div className="inline-flex items-center gap-2 rounded-full bg-[#001f3d]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#001f3d] mb-4">
+    <div id="explore-states" className="space-y-16">
+      <div className="text-center space-y-6">
+        <div className="inline-flex items-center gap-2 rounded-full bg-[#001f3d]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#001f3d]">
           <span className="w-2 h-2 rounded-full bg-[#e87a00]"></span>
           Explore the map
         </div>
-        <h2 className="text-3xl font-semibold tracking-tight text-[#001f3d] sm:text-4xl mb-4">
-          Active flag football states
-        </h2>
-        <p className="text-lg text-[#345c72]/90 max-w-2xl mx-auto">
-          {activeStates.length} {activeStates.length === 1 ? 'state has' : 'states have'} verified programs, clinics, and tournaments. 
-          Tap a state to explore full program listings.
-        </p>
+        <div className="space-y-4">
+          <h2 className="text-3xl font-semibold tracking-tight text-[#001f3d] sm:text-4xl">
+            Active flag football states
+          </h2>
+          <p className="text-lg text-[#345c72]/90 max-w-2xl mx-auto">
+            {activeStates.length} {activeStates.length === 1 ? 'state has' : 'states have'} verified programs, clinics, and tournaments. 
+            Tap a state to explore full program listings.
+          </p>
+        </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
         {topStates.map((state, idx) => (
           <Link
             key={state.code}
             href={`/states/${state.code.toLowerCase()}`}
-            className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200/60 hover:border-[#001f3d]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200/60 hover:border-[#001f3d]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl w-full max-w-sm"
           >
             {/* Color accent based on ranking */}
             <div 
@@ -148,7 +150,7 @@ export default async function StatesGrid() {
             <p className="text-sm text-[#345c72]/70">Organized by activity level</p>
           </div>
           
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {otherStates.map((state, index) => (
               <Link
                 key={state.code}

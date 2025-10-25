@@ -6,16 +6,28 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Hero />
-      <div className="bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-20 sm:px-10 lg:px-16">
+      
+      {/* Highlights Section - Full width background */}
+      <section className="relative w-full bg-gray-50">
+        {/* Subtle top border for visual separation */}
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        </div>
+        <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
           <Highlights />
         </div>
-      </div>
-      <div className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-6 py-20 sm:px-10 lg:px-16">
+      </section>
+      
+      {/* States Grid Section - Full width background */}
+      <section className="relative w-full bg-gray-50">
+        {/* Subtle top border for visual separation */}
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        </div>
+        <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
           <StatesGrid />
         </div>
-      </div>
+      </section>
     </div>
   )
 }

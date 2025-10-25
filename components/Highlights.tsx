@@ -28,26 +28,28 @@ const COLLAGE_ITEMS = [
 
 export default function Highlights() {
   return (
-    <div className="space-y-12">
-      <div className="text-center">
-        <div className="inline-flex items-center gap-2 rounded-full bg-[#001f3d]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#001f3d] mb-4">
+    <div className="space-y-16">
+      <div className="text-center space-y-6">
+        <div className="inline-flex items-center gap-2 rounded-full bg-[#001f3d]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#001f3d]">
           <span className="w-2 h-2 rounded-full bg-[#e87a00]"></span>
           Featured Programs
         </div>
-        <h2 className="text-3xl font-semibold tracking-tight text-[#001f3d] sm:text-4xl">
-          Featured Programs
-        </h2>
-        <p className="mt-4 text-lg text-[#345c72]/90 max-w-2xl mx-auto">
-          Discover top-rated programs, tournaments, and leagues that are making waves in flag football
-        </p>
+        <div className="space-y-4">
+          <h2 className="text-3xl font-semibold tracking-tight text-[#001f3d] sm:text-4xl">
+            Featured Programs
+          </h2>
+          <p className="text-lg text-[#345c72]/90 max-w-2xl mx-auto">
+            Discover top-rated programs, tournaments, and leagues that are making waves in flag football
+          </p>
+        </div>
       </div>
 
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
         {COLLAGE_ITEMS.map((card, index) => (
           <Link
             key={card.title}
             href={card.href}
-            className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200/60 hover:border-[#001f3d]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200/60 hover:border-[#001f3d]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl w-full max-w-sm"
           >
             {/* Subtle color accent bar */}
             <div 

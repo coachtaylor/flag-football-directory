@@ -92,10 +92,10 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden border-b border-[#001f3d]/10 bg-[#f6f7fa]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white to-transparent" />
+    <section className="relative w-full overflow-hidden bg-gray-50">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-50 to-transparent" />
 
-      <div className="relative mx-auto max-w-4xl px-6 pb-16 pt-16 sm:px-10 lg:px-16">
+      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-8 sm:px-8 lg:px-12">
         <div className="space-y-8">
             <div className="space-y-6">
               <span className="inline-flex items-center gap-3 rounded-full border border-[#001f3d]/10 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#001f3d]">
@@ -137,7 +137,7 @@ export default function Hero() {
               <div className="flex justify-center">
                 <span className="text-xs uppercase tracking-[0.3em] text-[#345c72]/70">Switch categories to refine your search</span>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {CATEGORIES.map((item) => {
                   const isActive = category === item.key
                   const Icon = item.icon
@@ -147,19 +147,35 @@ export default function Hero() {
                       type="button"
                       onClick={() => setCategory(item.key)}
                       className={`group flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition ${
-                        isActive ? 'border-[#001f3d]/30 bg-white shadow-[0_16px_32px_-24px_rgba(0,31,61,0.45)]' : 'border-[#001f3d]/10 bg-white/80 hover:border-[#001f3d]/25 hover:bg-white'
+                        isActive 
+                          ? 'border-[#e87a00] bg-white shadow-[0_16px_32px_-24px_rgba(232,122,0,0.3)] ring-2 ring-[#e87a00]/20' 
+                          : 'border-[#001f3d]/10 bg-white/80 hover:border-[#001f3d]/25 hover:bg-white'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ backgroundColor: `${item.accent}1A`, color: item.accent }}>
+                        <span 
+                          className={`flex h-9 w-9 items-center justify-center rounded-xl transition ${
+                            isActive ? 'ring-2 ring-[#e87a00]/30' : ''
+                          }`} 
+                          style={{ 
+                            backgroundColor: isActive ? item.accent : `${item.accent}1A`, 
+                            color: isActive ? 'white' : item.accent 
+                          }}
+                        >
                           <Icon />
                         </span>
                         <div>
-                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#001f3d]">{item.label}</p>
-                          <p className="text-xs text-[#345c72]/80">{item.description}</p>
+                          <p className={`text-sm font-semibold uppercase tracking-[0.18em] transition ${
+                            isActive ? 'text-[#e87a00]' : 'text-[#001f3d]'
+                          }`}>{item.label}</p>
+                          <p className={`text-xs transition ${
+                            isActive ? 'text-[#e87a00]/80' : 'text-[#345c72]/80'
+                          }`}>{item.description}</p>
                         </div>
                       </div>
-                      <span className={`text-sm font-semibold ${isActive ? 'text-[#001f3d]' : 'text-[#345c72]/60'}`}>→</span>
+                      <span className={`text-sm font-semibold transition ${
+                        isActive ? 'text-[#e87a00]' : 'text-[#345c72]/60'
+                      }`}>→</span>
                     </button>
                   )
                 })}
