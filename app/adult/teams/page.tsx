@@ -176,6 +176,7 @@ export default async function AdultTeamsPage({ searchParams }: { searchParams?: 
                   <option value="">Any format</option>
                   <option value="5v5">5v5</option>
                   <option value="7v7">7v7</option>
+                  <option value="8v8">8v8</option>
                 </select>
               </div>
             </form>
