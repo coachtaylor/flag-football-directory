@@ -109,19 +109,42 @@ export default async function TeamDetail({ params }: { params: { slug: string } 
         <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="md:col-span-2 space-y-6">
-              {team.about && (
-                <section className="rounded-3xl border border-[#001f3d]/10 bg-white p-6 shadow-[0_16px_40px_-28px_rgba(0,31,61,0.45)]">
-                  <h2 className="text-xl font-semibold text-[#001f3d] mb-4">About</h2>
-                  <p className="text-[#345c72]/90 leading-relaxed">{team.about}</p>
-                </section>
-              )}
-              
-              {team.accomplishments && (
-                <section className="rounded-3xl border border-[#001f3d]/10 bg-white p-6 shadow-[0_16px_40px_-28px_rgba(0,31,61,0.45)]">
-                  <h2 className="text-xl font-semibold text-[#001f3d] mb-4">Accomplishments</h2>
-                  <p className="text-[#345c72]/90 leading-relaxed">{team.accomplishments}</p>
-                </section>
-              )}
+              <section className="rounded-3xl border border-[#001f3d]/10 bg-white p-6 shadow-[0_16px_40px_-28px_rgba(0,31,61,0.45)]">
+                <h2 className="text-xl font-semibold text-[#001f3d] mb-4">About</h2>
+                <p className="text-[#345c72]/90 leading-relaxed">
+                  {team.about?.trim()
+                    ? team.about
+                    : 'We are gathering more information about this program. Coaches can submit an update to share coaching philosophy, culture, and player development focus.'}
+                </p>
+              </section>
+
+              <section className="rounded-3xl border border-[#001f3d]/10 bg-white p-6 shadow-[0_16px_40px_-28px_rgba(0,31,61,0.45)]">
+                <h2 className="text-xl font-semibold text-[#001f3d] mb-4">Accomplishments</h2>
+                {Array.isArray(team.accomplishments) ? (
+                  <ul className="space-y-2 text-[#345c72]/90">
+                    {(team.accomplishments as string[])
+                      .filter((item) => typeof item === 'string' && item.trim().length > 0)
+                      .map((item, index) => (
+                        <li key={`${item}-${index}`} className="flex items-start gap-2">
+                          <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#e87a00]" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    {(!Array.isArray(team.accomplishments) ||
+                      !(team.accomplishments as string[]).some((item) => typeof item === 'string' && item.trim().length > 0)) && (
+                        <li className="text-[#345c72]/70">
+                          Tournament finishes, league titles, and community highlights will appear here once the team shares them.
+                        </li>
+                      )}
+                  </ul>
+                ) : (
+                  <p className="text-[#345c72]/90 leading-relaxed">
+                    {typeof team.accomplishments === 'string' && team.accomplishments.trim().length > 0
+                      ? team.accomplishments
+                      : 'Tournament finishes, league titles, and community highlights will appear here once the team shares them.'}
+                  </p>
+                )}
+              </section>
             </div>
 
             <aside className="space-y-6">
