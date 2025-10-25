@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import TeamContactButton from '@/components/TeamContactButton'
 
 export default async function TeamDetail({ params }: { params: { slug: string } }) {
   const { data: team } = await supabase
@@ -217,14 +218,11 @@ export default async function TeamDetail({ params }: { params: { slug: string } 
                 </div>
                 
                 <div className="mt-6 space-y-3">
-                  {team.contact_email && (
-                    <a 
-                      href={`mailto:${team.contact_email}`}
-                      className="inline-flex w-full items-center justify-center rounded-2xl bg-[#e87a00] px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_-22px_rgba(232,122,0,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(232,122,0,0.65)]"
-                    >
-                      Contact Team
-                    </a>
-                  )}
+                  <TeamContactButton
+                    teamName={team.name}
+                    teamId={team.id}
+                    contactEmail={team.contact_email}
+                  />
                   {team.website && (
                     <a 
                       href={team.website}

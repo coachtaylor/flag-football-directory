@@ -1,5 +1,6 @@
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { supabase } from '@/lib/supabase'
+import LeagueContactButton from '@/components/LeagueContactButton'
 
 type LeagueRecord = {
   id: number
@@ -427,14 +428,11 @@ export default async function LeagueDetailPage({ params }: { params: { slug: str
                 </div>
 
                 <div className="mt-6 space-y-3">
-                  {league.contact_email && (
-                    <a
-                      href={`mailto:${league.contact_email}`}
-                      className="inline-flex w-full items-center justify-center rounded-2xl bg-[#e87a00] px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_-22px_rgba(232,122,0,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(232,122,0,0.65)]"
-                    >
-                      Contact League
-                    </a>
-                  )}
+                  <LeagueContactButton
+                    leagueName={league.name}
+                    leagueId={league.id}
+                    contactEmail={league.contact_email}
+                  />
                   {registerUrl && (
                     <a
                       href={registerUrl}

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Phoenix NFL FLAG",
+    "city": "Phoenix",
+    "state": "AZ",
+    "fees": 175.0,
+    "website": "https://example.com"
+  },
+  {
+    "name": "San Diego Youth Flag",
+    "city": "San Diego",
+    "state": "CA",
+    "fees": 185.0,
+    "website": "https://example.com"
+  }
+]

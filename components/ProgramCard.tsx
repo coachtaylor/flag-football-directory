@@ -14,27 +14,27 @@ type ProgramCardProps = {
 
 const cardStyles = {
   team: {
-    bg: 'bg-[#001f3d]',
-    badge: 'bg-[#001f3d]',
-    text: 'text-[#001f3d]',
+    bg: 'rgb(var(--color-secondary-900))',
+    badge: 'rgb(var(--color-secondary-900))',
+    text: 'rgb(var(--color-secondary-900))',
     icon: '👥'
   },
   league: {
-    bg: 'bg-[#345c72]',
-    badge: 'bg-[#345c72]',
-    text: 'text-[#345c72]',
+    bg: 'rgb(var(--color-accent-600))',
+    badge: 'rgb(var(--color-accent-600))',
+    text: 'rgb(var(--color-accent-600))',
     icon: '🚩'
   },
   clinic: {
-    bg: 'bg-[#e87a00]',
-    badge: 'bg-[#e87a00]',
-    text: 'text-[#e87a00]',
+    bg: 'rgb(var(--color-primary-600))',
+    badge: 'rgb(var(--color-primary-600))',
+    text: 'rgb(var(--color-primary-600))',
     icon: '📚'
   },
   tournament: {
-    bg: 'bg-[#001f3d]',
-    badge: 'bg-[#001f3d]',
-    text: 'text-[#001f3d]',
+    bg: 'rgb(var(--color-secondary-700))',
+    badge: 'rgb(var(--color-secondary-700))',
+    text: 'rgb(var(--color-secondary-700))',
     icon: '🏆'
   }
 }
@@ -54,26 +54,26 @@ export default function ProgramCard({
   return (
     <Link 
       href={href}
-      className="group block bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-gray-100"
+      className="group block bg-gradient-to-br from-white to-primary-50/30 rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-primary-200 hover:border-primary-300 transition-all duration-300 hover:-translate-y-1"
     >
-      {/* Image or colored header */}
-      <div className={`relative h-48 ${style.bg}`}>
+      {/* Image or colored header with gradient */}
+      <div className="relative h-48 overflow-hidden" style={{ background: `linear-gradient(135deg, ${style.bg}, ${style.bg}dd)` }}>
         {image ? (
-          <img src={image} alt={name} className="w-full h-full object-cover" />
+          <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-7xl opacity-20">{style.icon}</span>
+            <span className="text-7xl opacity-30 group-hover:opacity-40 transition-opacity duration-300">{style.icon}</span>
           </div>
         )}
         
-        {/* Badges */}
+        {/* Enhanced badges with gradients */}
         <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
-          <span className={`${style.badge} text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg`}>
+          <span className="text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg bg-gradient-to-r from-black/20 to-black/40 backdrop-blur-sm" style={{ backgroundColor: style.badge }}>
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </span>
           {verified && (
-            <span className="bg-white text-[#001f3d] px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
-              <svg className="w-4 h-4 text-[#e87a00]" fill="currentColor" viewBox="0 0 20 20">
+            <span className="bg-gradient-to-r from-white to-primary-50 px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-1 text-secondary-800">
+              <svg className="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               Verified
@@ -82,14 +82,14 @@ export default function ProgramCard({
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6 bg-[#f6f6f6]">
-        <h3 className="text-xl font-bold text-[#001f3d] mb-2 group-hover:text-[#345c72]">
+      {/* Enhanced content with better gradients */}
+      <div className="p-6 bg-gradient-to-br from-white via-primary-50/20 to-accent-50/10">
+        <h3 className="text-xl font-bold mb-2 group-hover:text-primary-700 transition-colors duration-300 text-secondary-900">
           {name}
         </h3>
         
         {(location || state) && (
-          <div className="flex items-center gap-2 text-[#345c72] mb-4">
+          <div className="flex items-center gap-2 mb-4 text-accent-600">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             </svg>
@@ -102,7 +102,7 @@ export default function ProgramCard({
             {details.slice(0, 3).map((detail, idx) => (
               <span 
                 key={idx} 
-                className="px-3 py-1.5 bg-white text-[#345c72] rounded-full text-sm font-medium"
+                className="px-3 py-1.5 bg-gradient-to-r from-white to-primary-50 rounded-full text-sm font-medium text-accent-600 border border-primary-200"
               >
                 {detail}
               </span>
@@ -110,9 +110,9 @@ export default function ProgramCard({
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-          <span className="text-[#345c72] font-medium">View Details</span>
-          <svg className="w-5 h-5 text-[#345c72] group-hover:text-[#001f3d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="flex items-center justify-between pt-4 border-t border-primary-200">
+          <span className="font-medium text-accent-600 group-hover:text-primary-600 transition-colors duration-300">View Details</span>
+          <svg className="w-5 h-5 group-hover:text-primary-600 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'rgb(var(--color-accent-600))' }}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </div>

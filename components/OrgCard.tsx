@@ -15,22 +15,22 @@ export default function OrgCard({ o }: { o: any }) {
   const getGradientColors = () => {
     switch(typeLower) {
       case 'clinic':
-        return 'from-[#345c72] to-[#001f3d]'
+        return 'from-accent-600 to-secondary-900'
       case 'tournament':
-        return 'from-[#001f3d] to-[#345c72]'
+        return 'from-secondary-900 to-accent-600'
       default:
-        return 'from-[#001f3d] to-[#345c72]'
+        return 'from-secondary-900 to-accent-600'
     }
   }
 
   const getBadgeColor = () => {
     switch(typeLower) {
       case 'clinic':
-        return 'bg-[#345c72]/5 text-[#345c72]'
+        return 'bg-accent-100 text-accent-600'
       case 'tournament':
-        return 'bg-[#001f3d]/5 text-[#001f3d]'
+        return 'bg-secondary-100 text-secondary-900'
       default:
-        return 'bg-[#001f3d]/5 text-[#001f3d]'
+        return 'bg-secondary-100 text-secondary-900'
     }
   }
 
@@ -47,7 +47,7 @@ export default function OrgCard({ o }: { o: any }) {
   const slugOrId = safeSlug ?? (generatedSlug || null) ?? fallbackId
   const href = slugOrId ? `/${routeSegment}/${slugOrId}` : `/${routeSegment}`
   const baseButtonClasses =
-    'inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] transition bg-[#e87a00] text-white shadow-[0_18px_45px_-22px_rgba(232,122,0,0.55)] hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(232,122,0,0.65)]'
+    'btn btn-primary w-full justify-center'
   const locationLabel =
     o.city_name && o.state
       ? `${o.city_name}, ${o.state}`
