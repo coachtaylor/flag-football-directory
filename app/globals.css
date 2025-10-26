@@ -10,54 +10,54 @@
 
 @layer base {
   :root {
-    /* PRIMARY COLORS - Red (Energy, Action, Sports) */
-    --color-primary-50: 254 242 242;
-    --color-primary-100: 254 226 226;
-    --color-primary-200: 254 202 202;
-    --color-primary-300: 252 165 165;
-    --color-primary-400: 248 113 113;
-    --color-primary-500: 239 68 68;
-    --color-primary-600: 220 38 38;   /* Main brand color - #DC2626 */
-    --color-primary-700: 185 28 28;
-    --color-primary-800: 153 27 27;
-    --color-primary-900: 127 29 29;
+    /* PRIMARY COLORS - Orange (Energy, Action) #e87a00 */
+    --color-primary-50: 254 245 235;
+    --color-primary-100: 254 237 220;
+    --color-primary-200: 253 220 185;
+    --color-primary-300: 252 195 140;
+    --color-primary-400: 250 154 85;
+    --color-primary-500: 248 146 58;
+    --color-primary-600: 232 122 0;     /* Main brand orange - #e87a00 */
+    --color-primary-700: 194 102 0;
+    --color-primary-800: 155 82 0;
+    --color-primary-900: 116 61 0;
 
-    /* SECONDARY COLORS - Navy (Trust, Authority, Stability) */
-    --color-secondary-50: 239 246 255;
-    --color-secondary-100: 219 234 254;
-    --color-secondary-200: 191 219 254;
-    --color-secondary-300: 147 197 253;
-    --color-secondary-400: 96 165 250;
-    --color-secondary-500: 59 130 246;
-    --color-secondary-600: 37 99 235;
-    --color-secondary-700: 29 78 216;
-    --color-secondary-800: 30 64 175;   /* Main navy - #1E40AF */
-    --color-secondary-900: 30 58 138;   /* Darker navy - #1A3A8A */
-    --color-secondary-950: 23 37 84;    /* Darkest navy - #132544 */
+    /* SECONDARY COLORS - Dark Navy (Trust, Authority) #001f3d */
+    --color-secondary-50: 240 244 247;
+    --color-secondary-100: 225 235 242;
+    --color-secondary-200: 195 215 230;
+    --color-secondary-300: 145 180 205;
+    --color-secondary-400: 85 135 170;
+    --color-secondary-500: 52 92 114;   /* Mid tone - #345c72 */
+    --color-secondary-600: 39 69 85;
+    --color-secondary-700: 26 46 57;
+    --color-secondary-800: 13 23 29;
+    --color-secondary-900: 0 31 61;     /* Main brand navy - #001f3d */
+    --color-secondary-950: 0 16 31;
 
-    /* ACCENT COLORS - Teal (Modern, Fresh, Active) */
-    --color-accent-50: 240 253 250;
-    --color-accent-100: 204 251 241;
-    --color-accent-200: 153 246 228;
-    --color-accent-300: 94 234 212;
-    --color-accent-400: 45 212 191;
-    --color-accent-500: 20 184 166;    /* Main teal - #14B8A6 */
-    --color-accent-600: 13 148 136;    /* Deeper teal - #0D9488 */
-    --color-accent-700: 15 118 110;
-    --color-accent-800: 17 94 89;
-    --color-accent-900: 19 78 74;
+    /* ACCENT COLORS - Medium Blue-Gray #345c72 */
+    --color-accent-50: 240 244 247;
+    --color-accent-100: 225 235 242;
+    --color-accent-200: 195 215 230;
+    --color-accent-300: 145 180 205;
+    --color-accent-400: 85 135 170;
+    --color-accent-500: 52 92 114;      /* Main accent - #345c72 */
+    --color-accent-600: 42 74 91;
+    --color-accent-700: 31 55 68;
+    --color-accent-800: 21 37 46;
+    --color-accent-900: 10 18 23;
 
     /* SEMANTIC COLORS */
     --color-success: 34 197 94;
     --color-warning: 234 179 8;
-    --color-error: 239 68 68;    /* Using primary red */
+    --color-error: 239 68 68;
     --color-info: 59 130 246;
 
     /* BACKGROUND & SURFACE - Light Theme */
-    --bg-base: 255 255 255;           /* Pure white */
-    --bg-subtle: 249 250 251;         /* Off-white */
-    --bg-muted: 243 244 246;          /* Light gray */
-    --surface: 255 255 255;           /* Cards, panels */
+    --bg-base: 246 246 246;           /* Brand light gray #f6f6f6 */
+    --bg-subtle: 255 255 255;         /* Pure white */
+    --bg-muted: 235 235 235;          /* Slightly darker gray */
+    --surface: 255 255 255;           /* Cards, panels - white */
     --surface-raised: 255 255 255;    /* Elevated elements */
     
     /* TEXT - Light Theme */
@@ -109,7 +109,7 @@
     --z-tooltip: 1070;
   }
 
-  /* DARK MODE */
+  /* DARK MODE - IMPROVED VISIBILITY */
   [data-theme="dark"] {
     /* BACKGROUND & SURFACE - Dark Theme */
     --bg-base: 17 24 39;              /* Dark gray-900 */
@@ -118,10 +118,10 @@
     --surface: 31 41 55;              /* gray-800 */
     --surface-raised: 55 65 81;       /* gray-700 */
     
-    /* TEXT - Dark Theme */
-    --text-primary: 243 244 246;      /* Light gray */
-    --text-secondary: 156 163 175;    /* Medium gray */
-    --text-tertiary: 107 114 128;     /* Darker gray */
+    /* TEXT - Dark Theme - IMPROVED CONTRAST */
+    --text-primary: 249 250 251;      /* Near white - much more visible */
+    --text-secondary: 209 213 219;    /* Lighter gray - better visibility */
+    --text-tertiary: 156 163 175;     /* Medium gray */
     --text-inverse: 17 24 39;         /* Dark text */
 
     /* BORDERS - Dark Theme */
@@ -154,6 +154,25 @@
     font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .surface-card {
+    @apply rounded-3xl border border-base bg-surface shadow-lg shadow-gray-200/40;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full bg-surface-raised px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+    color: rgb(var(--color-accent-600));
+  }
+
+  .section-heading {
+    @apply text-3xl sm:text-4xl font-bold leading-tight;
+    color: rgb(var(--color-secondary-900));
+  }
+
+  .section-subheading {
+    @apply text-base sm:text-lg max-w-2xl;
+    color: rgb(var(--color-accent-500) / 0.9);
   }
 
   /* Typography scale */

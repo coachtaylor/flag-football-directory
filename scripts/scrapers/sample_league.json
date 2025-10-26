@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Test Flag Football League",
+    "city": "Los Angeles",
+    "state": "CA",
+    "website": "https://example.com",
+    "fees": 150.0,
+    "divisions": ["8U", "10U", "12U"],
+    "nights": ["Sat", "Sun"],
+    "formats": ["7v7"],
+    "contact_type": "non-contact",
+    "comp_levels": ["rec"],
+    "about": "This is a test league to verify import works"
+  }
+]

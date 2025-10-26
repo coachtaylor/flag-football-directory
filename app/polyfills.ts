@@ -6,9 +6,9 @@ const globalWithTextEncoding = globalThis as typeof globalThis & {
 }
 
 if (typeof globalWithTextEncoding.TextEncoder === 'undefined') {
-  globalWithTextEncoding.TextEncoder = NodeTextEncoder
+  globalWithTextEncoding.TextEncoder = NodeTextEncoder as any
 }
 
 if (typeof globalWithTextEncoding.TextDecoder === 'undefined') {
-  globalWithTextEncoding.TextDecoder = NodeTextDecoder
+  globalWithTextEncoding.TextDecoder = NodeTextDecoder as any
 }
