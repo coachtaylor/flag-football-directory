@@ -29,7 +29,7 @@ export default function CitySearch({ cities, initialQuery = '' }: { cities: City
       </form>
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
         {filtered.map(c => (
-          <Link key={c.id} href={`/leagues/${c.slug}`} className="card hover:shadow">
+          <Link key={c.id} href={`/youth/leagues/${c.slug}`} className="card hover:shadow">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-semibold">{c.name}</h3>

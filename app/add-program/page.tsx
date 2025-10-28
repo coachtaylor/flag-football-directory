@@ -1,5 +1,8 @@
-import Breadcrumbs from '@/components/Breadcrumbs'
+'use client'
+
 import Link from 'next/link'
+import { useAuth } from '@/components/AuthProvider'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 const UsersIcon = () => (
   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -26,48 +29,69 @@ const TrophyIcon = () => (
   </svg>
 )
 
-const PROGRAM_TYPES = [
+const AGE_CATEGORIES = [
   {
-    key: 'team',
-    label: 'Team',
-    description: 'Youth & adult squads',
+    key: 'adult',
+    label: 'Adult',
+    description: 'Programs for adults 18+',
     icon: UsersIcon,
     accent: '#001f3d',
-    href: '/add-program/team',
+    href: '/add-program/adult',
   },
   {
-    key: 'league',
-    label: 'League',
-    description: 'Season-long play',
-    icon: FlagIcon,
-    accent: '#e87a00',
-    href: '/add-program/league',
-  },
-  {
-    key: 'clinic',
-    label: 'Clinic',
-    description: 'Skills & training',
+    key: 'youth',
+    label: 'Youth',
+    description: 'Programs for kids & teens',
     icon: AcademicCapIcon,
-    accent: '#345c72',
-    href: '/add-program/clinic',
+    accent: '#e87a00',
+    href: '/add-program/youth',
   },
   {
-    key: 'tournament',
-    label: 'Tournament',
-    description: 'Travel competition',
-    icon: TrophyIcon,
-    accent: '#123a55',
-    href: '/add-program/tournament',
+    key: 'free-agent',
+    label: 'Free Agent',
+    description: 'List yourself as available',
+    icon: UsersIcon,
+    accent: '#345c72',
+    href: '/add-program/free-agent',
   },
 ]
 
 export default function AddProgram() {
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center text-sm text-gray-500">
+        Checking your account…
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-[60vh] bg-white flex items-center">
+        <div className="mx-auto max-w-xl rounded-3xl border border-gray-200 bg-white px-8 py-12 text-center shadow-xl">
+          <h1 className="text-3xl font-semibold text-[#001f3d]">Sign in to add a program</h1>
+          <p className="mt-4 text-gray-600">
+            You need an account to add teams, leagues, clinics, or tournaments to the directory.
+          </p>
+          <Link
+            href="/login"
+            className="mt-6 inline-flex items-center justify-center rounded-2xl bg-[#001f3d] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
+          >
+            Go to Login
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:px-10 lg:px-16">
           <Breadcrumbs items={[{ label: 'Add Program' }]} className="mb-6" />
-          
+
           <div className="space-y-8">
             <div className="text-center">
               <div className="inline-flex items-center gap-2 rounded-full bg-[#001f3d]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#001f3d] mb-4">
@@ -77,41 +101,40 @@ export default function AddProgram() {
               <h1 className="text-3xl font-semibold tracking-tight text-[#001f3d] sm:text-4xl mb-4">
                 Add a Program
               </h1>
-              <p className="text-lg text-[#345c72]/90 max-w-2xl mx-auto">
-                Help grow the flag football community by adding your team, league, clinic, or tournament to our directory.
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                List a program, organization, or make yourself available as a player
               </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-              {PROGRAM_TYPES.map((program) => {
-                const Icon = program.icon
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+              {AGE_CATEGORIES.map((category) => {
+                const Icon = category.icon
                 return (
                   <Link
-                    key={program.key}
-                    href={program.href}
+                    key={category.key}
+                    href={category.href}
                     className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200/60 hover:border-[#001f3d]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   >
-                    {/* Color accent bar */}
-                    <div 
-                      className="absolute top-0 left-0 right-0 h-1"
-                      style={{ backgroundColor: program.accent }}
-                    />
-                    
-                    <div className="p-6 pt-8">
-                      <div className="flex items-center justify-between mb-4">
+                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: category.accent }} />
+
+                    <div className="p-8 pt-10">
+                      <div className="flex items-center justify-between mb-6">
                         <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-[#001f3d] mb-1">{program.label}</h3>
-                          <p className="text-sm text-[#345c72]">{program.description}</p>
+                          <h3 className="text-2xl font-semibold text-[#001f3d] mb-2">{category.label}</h3>
+                          <p className="text-base text-gray-600">{category.description}</p>
                         </div>
-                        <div className="flex-shrink-0 ml-4">
-                          <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:bg-[#e87a00] transition-colors" style={{ backgroundColor: `${program.accent}1A`, color: program.accent }}>
+                        <div className="flex-shrink-0 ml-6">
+                          <div
+                            className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-[#e87a00] group-hover:text-white transition-colors"
+                            style={{ backgroundColor: `${category.accent}1A`, color: category.accent }}
+                          >
                             <Icon />
                           </div>
                         </div>
                       </div>
-                      
-                      <div className="flex items-center text-sm font-medium text-[#345c72]/70 group-hover:text-[#e87a00] transition-colors">
-                        <span>Get started</span>
+
+                      <div className="flex items-center text-sm font-medium text-gray-500 group-hover:text-[#e87a00] transition-colors">
+                        <span>Select {category.label.toLowerCase()} programs</span>
                         <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                       </div>
                     </div>

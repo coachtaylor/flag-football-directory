@@ -75,8 +75,8 @@ export default function Navbar() {
       <div className="container flex items-center justify-between py-4">
         <Logo />
         <nav className="flex items-center gap-4">
-          <Link href="/teams">Teams</Link>
-          <Link href="/leagues">Leagues</Link>
+          <Link href="/youth/teams">Youth Teams</Link>
+          <Link href="/youth/leagues">Youth Leagues</Link>
           <ThemeToggle />
         </nav>
       </div>

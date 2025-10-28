@@ -109,8 +109,8 @@ export default function Hero() {
               <div className="space-y-6">
                 {/* Clean headline */}
                 <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl xl:text-[3.5rem] xl:leading-[1.05] text-[#001f3d]">
-                  Discover flag football programs that raise the{' '}
-                  <span className="text-[#e87a00]">game</span>
+                  Discover youth flag football programs that {' '}
+                  <span className="text-[#e87a00]">raise the game</span>
                 </h1>
                 <p className="max-w-2xl text-lg leading-relaxed sm:text-xl text-[#345c72]">
                   Browse curated teams, leagues, clinics, and tournaments with verified details, modern design, and zero gatekeeping.

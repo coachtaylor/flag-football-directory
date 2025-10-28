@@ -20,7 +20,7 @@ export default async function CitiesPage({ searchParams }: { searchParams?: { q?
     itemListElement: (cities || []).map((c: City, i: number) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `/leagues/${c.slug}`
+      url: `/youth/leagues/${c.slug}`
     }))
   }
 

@@ -93,7 +93,7 @@ export default async function TournamentsPage({ searchParams }: { searchParams?:
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue-50/50 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-6 sm:px-8 lg:px-12">
           <div className="mb-6">
-            <Breadcrumbs items={[{ label: 'Tournaments' }]} className="py-0 text-sm text-[#345c72]" />
+            <Breadcrumbs items={[{ label: 'Youth' }, { label: 'Tournaments' }]} className="py-0 text-sm text-[#345c72]" />
           </div>
 
           <div className="space-y-10">

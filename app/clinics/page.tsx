@@ -76,7 +76,7 @@ export default async function ClinicsPage({ searchParams }: { searchParams?: Rec
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue-50/50 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-6 sm:px-8 lg:px-12">
           <div className="mb-6">
-            <Breadcrumbs items={[{ label: 'Clinics' }]} className="py-0 text-sm text-[#345c72]" />
+            <Breadcrumbs items={[{ label: 'Youth' }, { label: 'Clinics' }]} className="py-0 text-sm text-[#345c72]" />
           </div>
 
           <div className="space-y-10">

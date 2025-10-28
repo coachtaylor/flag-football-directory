@@ -3,6 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import { Lexend } from 'next/font/google'
+import { AuthProvider } from '@/components/AuthProvider'
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -19,13 +20,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={lexend.className}>
-        <Navbar />
-        <main className="container py-8">{children}</main>
-        <footer className="border-t">
-          <div className="container py-8 text-sm text-gray-600">
-            © {new Date().getFullYear()} FlagFootballDirectory
-          </div>
-        </footer>
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <footer className="border-t">
+            <div className="container py-8 text-sm text-gray-600">
+              © {new Date().getFullYear()} FlagFootballDirectory
+            </div>
+          </footer>
+        </AuthProvider>
       </body>
     </html>
   )
