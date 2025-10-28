@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 type Kind = 'team'|'league'|'clinic'|'tournament'
 
-export default function AddProgramType({ params }: { params: { type: Kind } }) {
+export default function AddYouthProgramType({ params }: { params: { type: Kind } }) {
   const router = useRouter()
   const type = params.type
   const typeLabel = type[0].toUpperCase()+type.slice(1)
@@ -17,7 +17,7 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
   // Shared fields
   const [name, setName] = useState('')
   const [state, setState] = useState('')
-  const [city, setCity] = useState('')         // free text; you'll map to a city later
+  const [city, setCity] = useState('')
   const [website, setWebsite] = useState('')
   const [about, setAbout] = useState('')
 
@@ -29,12 +29,12 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
   const [contactType, setContactType] = useState('')
 
   // Event/League specifics
-  const [price, setPrice] = useState<string>('')      // string -> number on submit
+  const [price, setPrice] = useState<string>('')
   const [start, setStart] = useState('')
   const [end, setEnd] = useState('')
 
   // Anti-spam honeypot
-  const [website2, setWebsite2] = useState('')        // leave empty; bots will fill it
+  const [website2, setWebsite2] = useState('')
 
   function toggle(arr: string[], v: string) {
     return arr.includes(v) ? arr.filter(x=>x!==v) : [...arr, v]
@@ -51,6 +51,7 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
       price: price ? Number(price) : undefined,
       start_date: start || undefined,
       end_date: end || undefined,
+      age_category: 'YOUTH', // Set age category
       website2
     }
 
@@ -71,7 +72,7 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
   }
 
   const isEvent = type === 'clinic' || type === 'tournament'
-  const showContactType = type !== 'clinic' ? true : true // clinics can have non-contact too
+  const showContactType = type !== 'clinic' ? true : true
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -80,6 +81,7 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
           <Breadcrumbs
             items={[
               { label: 'Add Program', href: '/add-program' },
+              { label: 'Youth', href: '/add-program/youth' },
               { label: typeLabel },
             ]}
             className="mb-6"
@@ -87,15 +89,15 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
           
           <div className="space-y-8">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#001f3d]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#001f3d] mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#e87a00]"></span>
-                Add Your Program
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#e87a00]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#e87a00] mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#001f3d]"></span>
+                Youth {typeLabel}
               </div>
               <h1 className="text-3xl font-semibold tracking-tight text-[#001f3d] sm:text-4xl mb-4">
-                Add a {typeLabel}
+                Add a Youth {typeLabel}
               </h1>
               <p className="text-lg text-[#345c72]/90 max-w-2xl mx-auto">
-                Fill out the details below to add your {typeLabel.toLowerCase()} to our directory.
+                Fill out the details below to add your youth {typeLabel.toLowerCase()} to our directory.
               </p>
             </div>
 
@@ -195,7 +197,7 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
                               onChange={()=>setGender(g)}
                               className="w-4 h-4 text-[#e87a00] focus:ring-[#e87a00]"
                             />
-                            <span className="text-sm capitalize text-[#345c72]">{g}</span>
+                            <span className="text-sm capitalize text-[#345c72]">{g === 'coed' ? 'Co-Ed' : g}</span>
                           </label>
                         ))}
                       </div>
@@ -204,7 +206,7 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
                     <div className="space-y-3">
                       <label className="block text-sm font-medium text-[#001f3d]">Age Groups</label>
                       <div className="flex flex-wrap gap-4">
-                        {['6U','8U','10U','12U','14U','16U','18U','ADULT'].map(a=>(
+                        {['6U','8U','10U','12U','14U','16U','18U'].map(a=>(
                           <label key={a} className="flex items-center gap-2 cursor-pointer">
                             <input 
                               type="checkbox" 
@@ -333,9 +335,9 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
                 </button>
                 <Link 
                   className="flex-1 bg-white border border-gray-200 hover:border-[#001f3d]/20 text-[#001f3d] font-semibold py-3 px-6 rounded-xl transition-colors text-center" 
-                  href="/add-program"
+                  href="/add-program/youth"
                 >
-                  Back to Categories
+                  Back
                 </Link>
               </div>
             </form>
@@ -345,3 +347,4 @@ export default function AddProgramType({ params }: { params: { type: Kind } }) {
     </div>
   )
 }
+

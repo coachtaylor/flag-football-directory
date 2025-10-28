@@ -47,7 +47,7 @@ export default async function Explore({ searchParams }: { searchParams: SearchPa
       name: c.name,
       state: c.state,
       city_name: c.name,
-      detail_href: `/leagues/${c.slug}`,
+      detail_href: `/youth/leagues/${c.slug}`,
       spec: 'Browse leagues in this city',
       cover_url: undefined,
       verified: false,
@@ -96,7 +96,7 @@ export default async function Explore({ searchParams }: { searchParams: SearchPa
           signup_url: l.signup_url,
           website: l.website,
           verified: !!l.verified,
-          detail_href: `/leagues/${l.cities?.slug}`,
+          detail_href: `/youth/leagues/${l.cities?.slug}`,
         }
       })
     }

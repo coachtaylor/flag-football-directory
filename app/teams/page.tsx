@@ -65,7 +65,7 @@ export default async function TeamsPage({ searchParams }: { searchParams?: any }
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue-50/50 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-6 sm:px-8 lg:px-12">
           <div className="mb-6">
-            <Breadcrumbs items={[{ label: 'Teams' }]} className="py-0 text-sm text-[#345c72]" />
+            <Breadcrumbs items={[{ label: 'Youth' }, { label: 'Teams' }]} className="py-0 text-sm text-[#345c72]" />
           </div>
 
           <div className="space-y-10">

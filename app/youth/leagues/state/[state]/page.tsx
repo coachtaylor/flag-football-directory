@@ -83,7 +83,7 @@ export default async function LeaguesByState({ params }: { params: { state: stri
         <section key={slug} id={slug} className="grid gap-3">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">{g.cityName}</h2>
-            <Link className="link" href={`/leagues/${g.citySlug}`}>View {g.cityName} page »</Link>
+            <Link className="link" href={`/youth/leagues/${g.citySlug}`}>View {g.cityName} page »</Link>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
             {g.rows.map((l: any) => {

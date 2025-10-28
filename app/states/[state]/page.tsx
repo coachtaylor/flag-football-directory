@@ -66,22 +66,22 @@ export default async function StatePage({ params }: { params: { state: string } 
     {
       label: 'Teams',
       count: teams?.length || 0,
-      href: `/teams?state=${stateCode}`,
+      href: `/youth/teams?state=${stateCode}`,
     },
     {
       label: 'Leagues',
       count: leagues?.length || 0,
-      href: `/leagues?state=${stateCode}`,
+      href: `/youth/leagues?state=${stateCode}`,
     },
     {
       label: 'Clinics',
       count: clinics?.length || 0,
-      href: `/clinics?state=${stateCode}`,
+      href: `/youth/clinics?state=${stateCode}`,
     },
     {
       label: 'Tournaments',
       count: tournaments?.length || 0,
-      href: `/tournaments?state=${stateCode}`,
+      href: `/youth/tournaments?state=${stateCode}`,
     },
   ]
 
@@ -173,7 +173,7 @@ export default async function StatePage({ params }: { params: { state: string } 
                     </p>
                   </div>
                   <Link
-                    href={`/teams?state=${stateCode}`}
+                    href={`/youth/teams?state=${stateCode}`}
                     className="inline-flex items-center gap-2 rounded-full border border-[#001f3d]/15 bg-[#f6f7fa] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#345c72] transition hover:border-[#e87a00]/40 hover:text-[#001f3d]"
                   >
                     View all teams
@@ -188,6 +188,7 @@ export default async function StatePage({ params }: { params: { state: string } 
                           ...team,
                           city_name: team.cities?.name,
                           state: team.cities?.state,
+                          detail_href: `/youth/teams/${team.slug}`,
                         }}
                       />
                     </div>
@@ -208,7 +209,7 @@ export default async function StatePage({ params }: { params: { state: string } 
                     </p>
                   </div>
                   <Link
-                    href={`/leagues?state=${stateCode}`}
+                    href={`/youth/leagues?state=${stateCode}`}
                     className="inline-flex items-center gap-2 rounded-full border border-[#001f3d]/15 bg-[#f6f7fa] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#345c72] transition hover:border-[#e87a00]/40 hover:text-[#001f3d]"
                   >
                     View all leagues
@@ -248,7 +249,7 @@ export default async function StatePage({ params }: { params: { state: string } 
                     </p>
                   </div>
                   <Link
-                    href={`/clinics?state=${stateCode}`}
+                    href={`/youth/clinics?state=${stateCode}`}
                     className="inline-flex items-center gap-2 rounded-full border border-[#001f3d]/15 bg-[#f6f7fa] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#345c72] transition hover:border-[#e87a00]/40 hover:text-[#001f3d]"
                   >
                     View all clinics
@@ -288,7 +289,7 @@ export default async function StatePage({ params }: { params: { state: string } 
                     </p>
                   </div>
                   <Link
-                    href={`/tournaments?state=${stateCode}`}
+                    href={`/youth/tournaments?state=${stateCode}`}
                     className="inline-flex items-center gap-2 rounded-full border border-[#001f3d]/15 bg-[#f6f7fa] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#345c72] transition hover:border-[#e87a00]/40 hover:text-[#001f3d]"
                   >
                     View all tournaments

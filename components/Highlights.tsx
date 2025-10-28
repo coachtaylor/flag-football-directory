@@ -8,21 +8,21 @@ const COLLAGE_ITEMS = [
     subtitle: 'Las Vegas, NV',
     accent: 'rgb(var(--color-secondary-900))',
     background: 'rgb(var(--color-secondary-50))',
-    href: '/tournaments',
+    href: '/youth/tournaments',
   },
   {
     title: 'Elite Youth Camp',
     subtitle: 'Atlanta, GA',
     accent: 'rgb(var(--color-primary-600))',
     background: 'rgb(var(--color-primary-50))',
-    href: '/clinics',
+    href: '/youth/clinics',
   },
   {
     title: 'Phoenix HS League',
     subtitle: 'Coming Feb 2026',
     accent: 'rgb(var(--color-accent-600))',
     background: 'rgb(var(--color-accent-50))',
-    href: '/leagues',
+    href: '/youth/leagues',
   },
 ]
 

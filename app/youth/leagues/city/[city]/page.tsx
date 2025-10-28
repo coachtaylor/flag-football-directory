@@ -36,8 +36,8 @@ export default async function CityLeaguesPage({ params }: Props) {
 
   const breadcrumbs = [
     { label: 'Home', href: '/' },
-    { label: 'Leagues', href: '/leagues' },
-    { label: city.name, href: `/leagues/city/${citySlug}` },
+    { label: 'Leagues', href: '/youth/leagues' },
+    { label: city.name, href: `/youth/leagues/city/${citySlug}` },
   ]
 
   return (
@@ -65,7 +65,7 @@ export default async function CityLeaguesPage({ params }: Props) {
                   state: league.cities?.state,
                   city_name: league.cities?.name,
                   location: league.cities?.name,
-                  detail_href: `/leagues/${league.id}`,
+                  detail_href: `/youth/leagues/${league.id}`,
                   verified: true,
                 }}
               />
